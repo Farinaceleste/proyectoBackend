@@ -1,0 +1,39 @@
+
+
+<h1>Agregar nuevos productos</h1>
+<hr>
+<a href="/">Volver</a>
+<hr>
+
+<div class="cards">
+  {{#each products}}
+    <ul class="card" id="formulario">
+      <li>{{title}}</li>
+      <li>{{thumbnail}}</li>
+      <li>{{description}}</li>
+      <li><strong>Precio: ${price}</strong></li>
+      <li>Stock: {{stock}}</li>
+      <li>Código: #{{code}}</li>
+      <li>Id: {{id}}</li>
+      <button id="{{id}}" onclick="deleteProducts('{{id}}')">Borrar producto</button>
+    </ul>
+  {{/each}}
+</div>
+
+<form>
+    <input type="text" placeholder="Ingrese el titulo" id="title" required/>
+    <input type="text" placeholder="Ingrese el precio" id="price" required>
+    <input type="text" placeholder="Ingrese código" id="code" required>
+    <input type="text" placeholder="Ingrese la ruta de imágen" id="thumbnail" required>
+    <textarea placeholder="Agregue una descripción" id="description" required></textarea>
+    <div class="botones-product">
+        <button type="reset">Restablecer</button>
+        <button type="submit">Enviar</button>
+
+    </div>
+
+
+</form>
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/js/realtimeProducts.js"></script>

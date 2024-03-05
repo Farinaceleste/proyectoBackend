@@ -1,0 +1,22 @@
+<h1>Listado de productos: </h1>
+
+<a href="/realtimeproducts">Agregar/borrar productos</a>
+<hr>
+
+<div class="cards">
+
+    {{#each products}}
+    <div class="card" id="productos">
+        
+        <h1>{{title}}</h1>
+
+        <h3>{{thumbnail}}</h3>
+        <p>{{description}}</p>
+        <h3><strong>Precio: ${{price}}</strong></h3>
+        <h3>Stock: {{stock}}</h3>
+        <h3>Código: #{{code}}</h3>
+        <button>Borrar producto</button>
+    </div>
+    {{/each}}
+
+</div>

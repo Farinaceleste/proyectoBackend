@@ -1,0 +1,93 @@
+h1 {
+    color:rgb(224, 93, 93);
+    
+    text-align: center;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
+
+.cards {
+    display: flex;
+    flex-direction: row;
+    width:90%;
+    flex-wrap: wrap;
+    justify-content: center;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    max-width: 25%;
+    background-color: rgb(255, 201, 181);
+    gap:15px;
+    margin:10px;
+    padding:20px;
+    text-align: center;
+    border-radius: 15px;
+
+}
+
+body {
+    background-color: whitesmoke;
+}
+
+
+
+form {
+    display:flex;
+    flex-direction: column;
+    margin:25px;
+    padding: 25px;
+    font-weight: bold;
+    gap:30px;
+    justify-content: center;
+    align-items:center;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    
+}
+
+ul {
+    text-decoration: none;
+}
+
+input, textarea {
+    gap:15px;
+    padding: 15px;
+    border-radius: 5px;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    
+}
+
+button {
+    padding: 10px;
+    
+    border-radius: 10px;
+    gap:10px;
+    margin:5px;
+
+
+    &:hover {
+        background-color: burlywood;
+        color:black;
+    }
+}
+
+.botones-product {
+    display: flex;
+    justify-content: space-around;
+}
+
+a {
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+    color:rgb(224, 93, 93);
+
+    &:hover {
+        color:black;
+    }
+}
