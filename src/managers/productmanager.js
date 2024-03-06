@@ -7,12 +7,18 @@ export class ProductManager {
         this.path = ruta
     }
 
+
+
     getProducts() {
         if (fs.existsSync(this.path)) {
             return JSON.parse(fs.readFileSync(this.path, { encoding: "utf-8" }))
         } else {
             return []
         }
+    }
+
+    saveProducts (products) {
+        fs.writeFileSync(this.path, JSON.stringify(products), { encoding: 'utf-8' })
     }
 
     getProductsById(id) {
@@ -25,40 +31,34 @@ export class ProductManager {
 
     createProduct(product) {
         let products = this.getProducts();
-
-
-        const existProductById = products.some((p) => p.id === product.id);
-        const existProductByTitle = products.some((p) => p.title === product.title);
-
-        if (existProductById || existProductByTitle) {
-            console.log(`El producto ya existe`);
+    
+        const existProductByTitle = products.find((p) => p.title === product.title);
+    
+        if (existProductByTitle) {
+            console.log(`El producto con título "${product.title}" ya existe`);
             return null;
         }
-
+    
         let id = 1;
         if (products.length > 0) {
             id = Math.max(...products.map(p => p.id)) + 1;
         }
-
+    
         let newProduct = {
             id,
             ...product
         }
-
+    
         products.push(newProduct);
+    
         try {
-
-            fs.writeFileSync(this.path, JSON.stringify(products), { encoding: 'utf-8' })
+            fs.writeFileSync(this.path, JSON.stringify(products), { encoding: 'utf-8' });
             return newProduct;
-
         } catch (error) {
-            return null
+            console.error(error);
+            return null;
         }
-
-
-
     }
-
     deleteProduct(id) {
 
         let products = this.getProducts()
@@ -72,11 +72,13 @@ export class ProductManager {
 
         const deleteProducts = products.splice(index, 1)
 
-        fs.writeFileSync(this.path, JSON.stringify(products), { encoding: 'utf-8' })
+       this.saveProducts(deleteProducts)
 
         return deleteProducts
 
     }
+
+   
 
 
 }

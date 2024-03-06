@@ -1,51 +1,47 @@
 
-const socket=io();
+const socket = io();
 
-socket.on("new_product", newProduct => {
-  console.log(newProduct)
 
-  let formulario = document.getElementById("formulario");
-  formulario.innerHTML = `
-    <li>${newProduct.title}</li>
-    <li>${newProduct.thumbnail}</li>
-    <li>${newProduct.description}</li>
-    <li><strong>Precio: ${newProduct.price}</strong></li>
-    <li>Stock: ${newProduct.stock}</li>
-    <li>Código: ${newProduct.code}</li>
-    <li>Id: ${newProduct.id}</li>
-    <button id="borrar" onclick="deleteProducts('${newProduct.id}')">Borrar producto</button>
-  `;
+socket.on('ProductoAgregado', (product) => {
+    const productList = document.getElementById('productList');
+    const item = document.createElement('li');
+    item.textContent = `Title: ${product.title}, ID: ${product.id}`;
+    productList.appendChild(item);
 });
 
-const deleteProducts = (id) => {
-  if (confirm("Está seguro de borrar el producto?")) {
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: "btn btn-success",
-        cancelButton: "btn btn-danger"
-      },
-      buttonsStyling: false
+
+socket.on("ProductoEliminado", (productId) => {
+    const productList = document.getElementById('productList');
+    const items = productList.getElementsByTagName('li');
+    Array.from(items).forEach((item) => {
+        const itemId = item.textContent.split('ID: ')[1];
+        if (itemId === productId) {
+            productList.removeChild(item);
+        }
     });
-    swalWithBootstrapButtons.fire({
-      title: "Deleted!",
-      text: "Your file has been deleted.",
-      icon: "success"
-    });
-
-    document.getElementById(id).remove();
-
-    socket.emit("delete_product", { id });
-  }
-};
-
-socket.on("delete_product", (deleteProduct) => {
-  if (deleteProduct.id === id) {
-    const products = productmanager.getProducts();
-    const index = products.findIndex((p) => p.id === deleteProduct.id);
-
-    if (index !== -1) {
-      products.splice(index, 1);
-      productmanager.saveProducts(products);
-    }
-  }
 });
+
+
+document.getElementById('productForm').addEventListener('submit', (event) => {
+    event.preventDefault();
+    const productName = document.getElementById('title').value;
+    const productPrice = document.getElementById('price').value;
+    const productCode = document.getElementById('code').value;
+    const productThumbnail = document.getElementById('thumbnail').value;
+    const productDescription = document.getElementById('description').value;
+    socket.emit('addProduct', { productName, productPrice, productCode, productThumbnail, productDescription });
+    document.getElementById('title').value = '';
+    document.getElementById('price').value = '';
+    document.getElementById('code').value = '';
+    document.getElementById('thumbnail').value = '';
+    document.getElementById('description').value = '';
+});
+
+
+document.getElementById('deleteForm').addEventListener('submit', (event) => {
+    event.preventDefault();
+    const productId = document.getElementById('prodDelId').value;
+    socket.emit('deleteProduct', productId);
+    document.getElementById('prodDelId').value = '';
+});
+

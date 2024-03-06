@@ -3,20 +3,12 @@
 <a href="/realtimeproducts">Agregar/borrar productos</a>
 <hr>
 
-<div class="cards">
+<div class="productList">
 
     {{#each products}}
-    <div class="card" id="productos">
-        
-        <h1>{{title}}</h1>
-
-        <h3>{{thumbnail}}</h3>
-        <p>{{description}}</p>
-        <h3><strong>Precio: ${{price}}</strong></h3>
-        <h3>Stock: {{stock}}</h3>
-        <h3>Código: #{{code}}</h3>
-        <button>Borrar producto</button>
-    </div>
+        <ul> 
+            <li>{{this.title}} - ${{this.price}}</li> 
+        </ul>
     {{/each}}
 
 </div>

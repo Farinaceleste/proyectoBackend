@@ -6,28 +6,7 @@ h1 {
 }
 
 
-.cards {
-    display: flex;
-    flex-direction: row;
-    width:90%;
-    flex-wrap: wrap;
-    justify-content: center;
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
-    
-}
 
-.card {
-    display: flex;
-    flex-direction: column;
-    max-width: 25%;
-    background-color: rgb(255, 201, 181);
-    gap:15px;
-    margin:10px;
-    padding:20px;
-    text-align: center;
-    border-radius: 15px;
-
-}
 
 body {
     background-color: whitesmoke;
@@ -48,8 +27,9 @@ form {
     
 }
 
-ul {
+ ul li{
     text-decoration: none;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 input, textarea {

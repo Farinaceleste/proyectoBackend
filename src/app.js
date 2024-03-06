@@ -23,7 +23,10 @@ app.use (express.static(path.join(__dirname, "/public")))
 
 
 app.use ("/", vistasRouter)
-app.use("/realtimeproducts", vistasRouter)
+app.use("/realtimeproducts", (req, res, next) => {
+    req.io=io
+    next()
+}, vistasRouter)
 app.use("/api/products", (req, res, next) => {
     req.io=io
     next()
