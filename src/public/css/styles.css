@@ -16,7 +16,7 @@ body {
 
 form {
     display:flex;
-    flex-direction: column;
+    flex-direction: row;
     margin:25px;
     padding: 25px;
     font-weight: bold;

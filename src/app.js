@@ -21,19 +21,10 @@ app.set("views", path.join(__dirname, "views"))
 
 app.use (express.static(path.join(__dirname, "/public")))
 
-
 app.use ("/", vistasRouter)
-app.use("/realtimeproducts", (req, res, next) => {
-    req.io=io
-    next()
-}, vistasRouter)
-app.use("/api/products", (req, res, next) => {
-    req.io=io
-    next()
-}, ProductRouter)
-
+app.use("/realtimeproducts", vistasRouter)
+app.use("/api/products", ProductRouter)
 app.use("/api/carts", CartRouter)
-
 
 const server = app.listen(PORT, ()=> {
     console.log(`Server escuchando en puerto ${PORT}`)
@@ -42,7 +33,7 @@ const server = app.listen(PORT, ()=> {
 io=new Server(server)
 
 io.on("connection", socket => {
-    console.log(`Se conectó un cliente con id${socket.id}`)
+    console.log(`Se conectó un cliente con id ${socket.id}`)
 
     
 })

@@ -28,68 +28,16 @@
         <input type="text" placeholder="Ingrese la ruta de imágen" id="thumbnail" name="thumbnail" required>
         <textarea placeholder="Agregue una descripción" id="description" name="description" required></textarea>
         <div class="botones-product">
-            <button type="reset">Restablecer</button>
+            
             <button type="submit">Enviar</button>
         </div>
     </form>
 
-    <form method="post" id="deleteForm" action="/api/products/:id">
-        <input type="text" placeholder="Ingrese id del producto a eliminar" name="prodDelID" required />
+    <form method="delete" id="deleteForm" action="/api/products/:id">
+        <input type="text" placeholder="Ingrese id" name="idDelete" required />
         <button type="submit">Borrar producto</button>
     </form>
 
-    <script>
-        let delProdId;
-
-document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById('deleteForm').addEventListener('submit', function (event) {
-        event.preventDefault()
-
-        let Idprod = document.getElementById('prodDelId')
-        delProdId = Number(Idprod.value)
-        let url = '/api/products/' + delProdId
-
-        fetch(url, {
-            method: 'delete',
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-
-
-
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Error al eliminar el producto')
-            }
-            return response.json()
-        })
-
-        const inputElement = document.getElementById('inputId');
-if (inputElement === null) {
-  console.error('Element with id "inputId" not found');
-} else {
-  // Use inputElement
-}
-
-        .then(data => {
-            Swal.fire({
-                title: 'Producto eliminado con éxito',
-                icon: 'success',
-                confirmButtonText: 'Aceptar'
-            })
-        })
-
-        .catch(error => {
-            Swal.fire({
-                title: 'Error',
-                text: error.message,
-                icon: 'error',
-                confirmButtonText: 'Aceptar'
-            })
-        })
-    })
-})
-    </script>
+    
 </body>
 </html>
