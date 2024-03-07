@@ -1,43 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agregar nuevos productos</title>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-</head>
-<body>
-    <h1>Agregar nuevos productos</h1>
-    <hr>
-    <a href="/">Volver</a>
-    <hr>
+<h1>Agregar/borrar productos</h1>
+<hr>
+<a href="/">Volver</a>
+<hr>
 
-    <div class="productList">
+<div class="realtime">
+
+    <ul id="ulproducts">
         {{#each products}}
-        <ul>
-            <li>{{title}} - ${{price}}</li>
-        </ul>
-        {{/each}}
-    </div>
+        <li>{{title}} - ${{price}}</li>
 
-    <form method="post" id="FormProd" action="/api/products">
+        {{/each}}
+    </ul>
+
+
+    <form method="post" id="deleteForm" action="http://localhost:8080/api/products/"></form>
         <input type="text" placeholder="Ingrese el titulo" id="title" name="title" required />
-        <input type="text" placeholder="Ingrese el precio" id="price" name="price" required>
-        <input type="text" placeholder="Ingrese código" id="code" name="code" required>
-        <input type="text" placeholder="Ingrese la ruta de imágen" id="thumbnail" name="thumbnail" required>
-        <textarea placeholder="Agregue una descripción" id="description" name="description" required></textarea>
+        <input type="number" placeholder="Ingrese el precio" id="price" name="price" required>
+        <input type="number" placeholder="Ingrese código" id="code" name="code" required>
+        <input type="number" placeholder="Ingrese stock" id="stock" name="stock" required>
+        <input placeholder="Agregue una descripción" id="description" name="description" required></input>
         <div class="botones-product">
-            
-            <button type="submit">Enviar</button>
+            <button type="submit" onclick="agregar(event)">Enviar</button>
         </div>
     </form>
 
-    <form method="delete" id="deleteForm" action="/api/products/:id">
-        <input type="text" placeholder="Ingrese id" name="idDelete" required />
-        <button type="submit">Borrar producto</button>
+    <form method="delete" id="deleteForm" action="http://localhost:8080/api/products/{{id}}"></form>
+    <input type="text" placeholder="Ingrese id" name="idProd" id="idProd" required />
+    <button type="submit" onclick="borrar(idProd.value)">Borrar producto</button>
     </form>
 
-    
-</body>
-</html>
+</div>
+
+
+
+
+
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/realTimeProducts.js"></script>

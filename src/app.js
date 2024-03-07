@@ -2,14 +2,13 @@ import path from  "path";
 import express from "express"
 import __dirname from "./utils.js";
 import {engine} from "express-handlebars"
-
 import {Server} from "socket.io";
 import {router as CartRouter} from "./routes/cart.router.js";
 import {router as ProductRouter} from "./routes/products.router.js";
 import {router as vistasRouter} from "./routes/vistas.router.js";
 
 const PORT = 8080;
-export let io
+let io
 const app = express()
 
 app.use(express.json());
@@ -20,11 +19,18 @@ app.set("view engine", "handlebars")
 app.set("views", path.join(__dirname, "views"))
 
 app.use (express.static(path.join(__dirname, "/public")))
-
 app.use ("/", vistasRouter)
 app.use("/realtimeproducts", vistasRouter)
-app.use("/api/products", ProductRouter)
+app.use("/api/products", (req, res, next) => {
+    req.io = io;
+    next();
+  }, ProductRouter);
 app.use("/api/carts", CartRouter)
+
+app.get("*", (req, res) => {
+    res.setHeader("content-type", "text/plain")
+    res.status(404).send("error 404 - page not found")
+})
 
 const server = app.listen(PORT, ()=> {
     console.log(`Server escuchando en puerto ${PORT}`)

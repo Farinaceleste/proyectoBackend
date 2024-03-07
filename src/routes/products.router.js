@@ -7,8 +7,10 @@ let productmanager = new ProductManager(rutaProducts);
 
 router.get('/', (req, res) => {
   let products = productmanager.getProducts();
+
+  res.setHeader("Content-Type", "application/json");
   res.status(200).json({ products });
-});
+})
 
 router.get("/:id", (req, res) => {
 
@@ -25,20 +27,20 @@ router.get("/:id", (req, res) => {
     return res.status(404).json({ error: `No existen productos con el id ${id}` })
   }
 
-  res.setHeader("Content-type", "aplication/json")
+  res.setHeader("Content-Type", "application/json")
   res.status(200).json({ prod })
 
 
 });
 
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
   let { title, price, description, stock, code, thumbnail } = req.body;
 
-  if (!title || !price || !description || !stock || !code || !thumbnail) {
+  if (!title || !price || !description || !stock || !code ) {
     return res.status(400).json({ error: "Complete los campos faltantes" });
   }
 
-  let products = productmanager.getProducts()
+  let products = await productmanager.getProducts()
 
   const existProductById = products.find((p) => p.title === products.title);
 
@@ -47,15 +49,10 @@ router.post("/", (req, res) => {
     return null;
   }
 
-
   let id = 1;
   if (products.length > 0) {
     id = Number(Math.max(...products.map(p => p.id)) + 1);
   }
-
-  if(id  == NaN){
-    return console.log(error.message)}
-
 
   try {
     const newProduct = {
@@ -65,22 +62,24 @@ router.post("/", (req, res) => {
 
     products.push(newProduct);
     productmanager.saveProducts(products)
-
+    req.io.emit("newProduct", newProduct);
+    res.setHeader("Content-Type", "application/json")
     res.status(201).json({ newProduct });
+
   } catch (error) {
     console.log('Error al guardar  el producto', error);
   }
 
 })
 
-router.post("/:id", (req, res) => {
+router.post("/:id", async (req, res) => {
   let id = Number(req.params.id);
 
   if (isNaN(id)) {
     return res.status(400).json({ error: "El id debe ser numérico" });
   }
 
-  let products = productmanager.getProducts()
+  let products = await productmanager.getProducts()
 
   let index = products.findIndex(p => p.id === id);
 
@@ -102,14 +101,14 @@ router.post("/:id", (req, res) => {
 
 
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id", async (req, res) => {
   let id = Number(req.params.id);
 
   if (isNaN(id)) {
     return res.status(400).json({ error: "El id debe ser numérico" });
   }
 
-  let products = productmanager.getProducts()
+  let products = await productmanager.getProducts()
 
   let indiceprod = products.findIndex(p => p.id === id)
   if (indiceprod === -1) {
@@ -120,6 +119,8 @@ router.delete("/:id", (req, res) => {
   products.splice(indiceprod, 1)
 
   productmanager.saveProducts(products);
+
+  req.io.emit("deletedProduct", deletedProd)
 
   res.setHeader("Content-Type", "application/json")
   res.status(200).json({ deletedProd })

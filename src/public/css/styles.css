@@ -5,7 +5,10 @@ h1 {
     font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
 
-
+.form {
+    display: flex;
+    flex-direction: column;
+}
 
 
 body {
@@ -14,18 +17,8 @@ body {
 
 
 
-form {
-    display:flex;
-    flex-direction: row;
-    margin:25px;
-    padding: 25px;
-    font-weight: bold;
-    gap:30px;
-    justify-content: center;
-    align-items:center;
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
-    
-}
+
+
 
  ul li{
     text-decoration: none;
@@ -34,9 +27,10 @@ form {
 
 input, textarea {
     gap:15px;
-    padding: 15px;
+    padding: 25px;
     border-radius: 5px;
     font-family:Verdana, Geneva, Tahoma, sans-serif;
+    margin:10px;
     
 }
 

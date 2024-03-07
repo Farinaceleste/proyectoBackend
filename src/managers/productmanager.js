@@ -7,16 +7,16 @@ export class ProductManager {
         this.path = ruta
     }
 
-    getProducts() { //busca archivo y si no lo encuentra lo crea
+    async getProducts() { //busca archivo y si no lo encuentra lo crea
         if (fs.existsSync(this.path)) { 
-            return JSON.parse(fs.readFileSync(this.path, { encoding: "utf-8" }))
+            return JSON.parse(await fs.promises.readFile(this.path, { encoding: "utf-8" }))
         } else {
             return []
         }
     }
 
-    saveProducts (products) { // solo guarda productos en el archivo json 
-        fs.writeFileSync(this.path, JSON.stringify(products), { encoding: 'utf-8' })
+    async saveProducts (products) { // solo guarda productos en el archivo json 
+        await fs.promises.writeFile(this.path, JSON.stringify(products), { encoding: 'utf-8' })
     }
 
 }

@@ -1,1 +1,82 @@
-[{"title":"Psycho","price":7,"stock":10,"status":true,"description":"Psycho is a 1960 American psychological horror film directed by Alfred Hitchcock. The film centers on an encounter between a secretary, Marion Crane, who ends up at a remote motel after stealing money from her employer, and the motel's disturbed owner-manager, Norman Bates.","thumbnail":"rutaImagen","code":1,"id":1},{"title":"Vertigo","price":22,"stock":8,"status":true,"description":"Vertigo is a 1958 American psychological thriller film directed and produced by Alfred Hitchcock. The film follows John 'Scottie' Ferguson, a former police detective who suffers from acrophobia, as he is hired by an acquaintance to follow his wife, Madeleine Elster, who is behaving strangely.","thumbnail":"rutaImagen","code":2,"id":2},{"title":"Rear Window","price":15,"stock":12,"status":true,"description":"Rear Window is a 1954 American Technicolor mystery thriller film directed by Alfred Hitchcock and written by John Michael Hayes. The film stars James Stewart as L.B. 'Jeff' Jefferies, a photojournalist who becomes convinced one of his neighbors has committed murder and involves his glamorous socialite girlfriend, Lisa Carol Fremont (Grace Kelly), and his nurse Stella (Thelma Ritter) in helping him investigate the crime.","thumbnail":"rutaImagen","code":3,"id":3},{"title":"The Birds","price":25,"stock":9,"status":true,"description":"The Birds is a 1963 American horror-thriller film directed and produced by Alfred Hitchcock, loosely based on the 1952 story 'The Birds' by Daphne du Maurier. It focuses on a series of sudden and unexplained bird attacks on the people of Bodega Bay, California, over the course of a few days.","thumbnail":"rutaImagen","code":4,"id":4},{"title":"Dial M for Murder","price":20,"stock":15,"status":true,"description":"Dial M for Murder is a 1954 American thriller film directed by Alfred Hitchcock, starring Ray Milland, Grace Kelly, and Robert Cummings. The film is based on the play of the same name by Frederick Knott.","thumbnail":"rutaImagen","code":5,"id":5},{"title":"To Catch a Thief","price":10,"stock":12,"status":true,"description":"To Catch a Thief is a 1955 American romantic thriller film directed by Alfred Hitchcock and starring Cary Grant and Grace Kelly. The film is set in the French Riviera and follows a retired cat burglar who must save his reputation by catching a copycat thief who is targeting wealthy tourists.","thumbnail":"rutaImagen","code":6,"id":6},{"title":"The Man Who Knew Too Much","price":12,"stock":20,"status":true,"description":"The Man Who Knew Too Much is a 1956 American suspense film directed by Alfred Hitchcock, starring James Stewart and Doris Day. The film is a remake of Hitchcock's own 1934 film of the same name.","thumbnail":"rutaImagen","code":7,"id":7},{"title":"Marnie","description":"Marnie is a 1964 American psychological thriller film directed by Alfred Hitchcock, and starring Tippi Hedren and Sean Connery.","code":8,"status":true,"stock":100,"thumbnail":"rutaImagen","price":20,"id":8},{"title":"Torn Curtain","description":"Torn Curtain is a 1966 American spy film directed by Alfred Hitchcock, and starring Paul Newman and Julie Andrews.","code":9,"status":true,"stock":100,"thumbnail":"rutaImagen","price":17,"id":9}]
+[
+    {
+      "id": "1",
+      "title": "Psycho",
+      "description": "A Phoenix secretary embezzles $40,000 from her employer's client, goes on the run, and checks into a remote motel run by a young man under the domination of his mother.",
+      "price": 9.99,
+      "stock": 100,
+      "code": "PSY-123"
+    },
+    {
+      "id": "2",
+      "title": "The Birds",
+      "description": "A wealthy San Francisco socialite pursues a potential boyfriend to a small Northern California town that slowly takes a turn for the bizarre when birds of all kinds suddenly begin to attack people.",
+      "price": 12.99,
+      "stock": 50,
+      "code": "BIR-456"
+    },
+    {
+      "id": "3",
+      "title": "Rear Window",
+      "description": "A wheelchair-bound photographer spies on his neighbors from his apartment window and becomes convinced one of them has committed murder.",
+      "price": 14.99,
+      "stock": 75,
+      "code": "REA-789"
+    },
+    {
+      "id": "4",
+      "title": "Vertigo",
+      "description": "A former police detective juggles wrestling with his personal demons and becoming obsessed with a hauntingly beautiful woman.",
+      "price": 19.99,
+      "stock": 25,
+      "code": "VER-012"
+    },
+    {
+      "id": "5",
+      "title": "North by Northwest",
+      "description": "A New York City advertising executive goes on the run after being mistaken for a government agent by a group of foreign spies.",
+      "price": 15.99,
+      "stock": 60,
+      "code": "NBN-345"
+    },
+    {
+      "id": "6",
+      "title": "Dial M for Murder",
+      "description": "A tennis player frames his unfaithful wife for first-degree murder after she inadvertently hinders his plan to kill her.",
+      "price": 11.99,
+      "stock": 80,
+      "code": "DIA-678"
+    },
+    {
+      "id": "7",
+      "title": "To Catch a Thief",
+      "description": "A retired jewel thief sets out to prove his innocence after being suspected of returning to his former occupation.",
+      "price": 13.99,
+      "stock": 70,
+      "code": "TCA-901"
+    },
+    {
+      "id": "8",
+      "title": "Marnie",
+      "description": "A troubled woman is plagued by a series of personal conflicts which ultimately leads to a dramatic confrontation with her boss.",
+      "price": 17.99,
+      "stock": 30,
+      "code": "MAR-234"
+    },
+    {
+      "id": "9",
+      "title": "The Trouble with Harry",
+      "description": "The trouble with Harry is that he's dead, and everyone seems to have a different idea of what should be done with his body.",
+      "price": 8.99,
+      "stock": 100,
+      "code": "THW-567"
+    },
+    {
+      "id": "10",
+      "title": "Frenzy",
+      "description": "A serial killer is murdering women with a necktie, and a London ex-convict who was just released from prison becomes the prime suspect in the killings.",
+      "price": 10.99,
+      "stock": 90,
+      "code": "FRE-890"
+    }
+  ]

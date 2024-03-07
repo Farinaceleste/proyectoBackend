@@ -1,7 +1,3 @@
-import { Server } from "socket.io";
-import { Express } from "express";
-import { router } from "./products.router";
-
 
 const socket = (io) => {
     const router = express.Router()
