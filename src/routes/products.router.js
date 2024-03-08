@@ -118,10 +118,9 @@ router.delete("/:id", async (req, res) => {
   let deletedProd = products[indiceprod]
   products.splice(indiceprod, 1)
 
-  productmanager.saveProducts(products);
+ productmanager.saveProducts(products);
 
-  req.io.emit("deleteProduct", deletedProd)
-
+  req.io.emit("deleteProduct", deletedProd);
   res.setHeader("Content-Type", "application/json")
   res.status(200).json({ deletedProd })
 })

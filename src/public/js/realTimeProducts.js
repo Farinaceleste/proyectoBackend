@@ -1,36 +1,38 @@
 const socket = io();
 
 socket.on('newProduct', datos => {
-  console.log(datos);
+  console.log(datos)
 
-  let ulProductos = document.getElementById("ulproducts");
+  let ulProductos = document.getElementById("ulproducts")
   let li = document.createElement("li");
   li.innerHTML = `${datos.title} - ${datos.price}`;
   li.setAttribute("id", `producto-${datos.id}`);
   ulProductos.appendChild(li);
-});
+})
 
-async function borrar(id) {
-  id = Number(id);
-
-  if (isNaN(id)) {
-    alert("El id debe ser numérico");
-    return;
-  }
+async function borrar() {
+  const prodId = document.getElementById("idProd").value;
+  const url = `http://localhost:8080/api/products/${prodId}`;
 
   try {
+    const respuesta = await fetch(url, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
-  const respuesta = await fetch(`http://localhost:8080/api/products/${id}`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+    
 
-  console.log({ id, respuesta });
-  console.log("Producto borrado correctamente");
+    let datos=await respuesta.json()
+    console.log(datos)
+
+    if (!respuesta.ok) {
+      console.log("Error");
+    } else {
+      console.log("Producto borrado correctamente");
+    }
   } catch (err) {
-    console.error(err);
     alert("Ha ocurrido un error al borrar el producto");
   }
  
@@ -69,4 +71,4 @@ const agregar = async (event) => {
     console.error(err);
     alert("Ha ocurrido un error al agregar el producto");
   }
-};
+}

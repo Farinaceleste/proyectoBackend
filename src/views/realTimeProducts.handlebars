@@ -12,7 +12,7 @@
     </ul>
 
 
-    <form method="post" id="deleteForm" action="http://localhost:8080/api/products/"></form>
+    <form method="post" id="agregarForm" action="http://localhost:8080/api/products/"></form>
     <input type="text" placeholder="Ingrese el titulo" id="title" name="title" required />
     <input type="number" placeholder="Ingrese el precio" id="price" name="price" required>
     <input type="number" placeholder="Ingrese código" id="code" name="code" required>
@@ -25,7 +25,7 @@
 
     <form method="delete" id="deleteForm" action="http://localhost:8080/api/products/{{id}}"></form>
     <input type="number" placeholder="Ingrese id" name="idProd" id="idProd" required />
-    <button type="submit" onclick="borrar(document.getElementById('idProd').value)">Borrar producto</button>
+    <button type="submit" onclick="borrar()">Borrar producto</button>
 
 </div>
 
