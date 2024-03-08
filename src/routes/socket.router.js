@@ -4,14 +4,14 @@ const socket = (io) => {
 
 
     io.on("connection", (socket) => {
-        socket.on("AddProduct", (ProductName) => {
+        socket.on("AddProduct", (datos) => {
 
-            io.emit("productoAgregado", ProductName)
+            io.emit("productoAgregado", datos)
         })
 
-        socket.on("deleteProduct", (ProductId) => {
+        socket.on("deleteProduct", (datos) => {
 
-            socket.emit ("productoEliminado", ProductId)
+            socket.emit ("productoEliminado", datos)
         })
     })
 

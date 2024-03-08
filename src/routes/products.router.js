@@ -120,7 +120,7 @@ router.delete("/:id", async (req, res) => {
 
   productmanager.saveProducts(products);
 
-  req.io.emit("deletedProduct", deletedProd)
+  req.io.emit("deleteProduct", deletedProd)
 
   res.setHeader("Content-Type", "application/json")
   res.status(200).json({ deletedProd })

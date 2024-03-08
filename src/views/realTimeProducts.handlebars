@@ -8,26 +8,24 @@
     <ul id="ulproducts">
         {{#each products}}
         <li>{{title}} - ${{price}}</li>
-
         {{/each}}
     </ul>
 
 
     <form method="post" id="deleteForm" action="http://localhost:8080/api/products/"></form>
-        <input type="text" placeholder="Ingrese el titulo" id="title" name="title" required />
-        <input type="number" placeholder="Ingrese el precio" id="price" name="price" required>
-        <input type="number" placeholder="Ingrese código" id="code" name="code" required>
-        <input type="number" placeholder="Ingrese stock" id="stock" name="stock" required>
-        <input placeholder="Agregue una descripción" id="description" name="description" required></input>
-        <div class="botones-product">
-            <button type="submit" onclick="agregar(event)">Enviar</button>
-        </div>
+    <input type="text" placeholder="Ingrese el titulo" id="title" name="title" required />
+    <input type="number" placeholder="Ingrese el precio" id="price" name="price" required>
+    <input type="number" placeholder="Ingrese código" id="code" name="code" required>
+    <input type="number" placeholder="Ingrese stock" id="stock" name="stock" required>
+    <input placeholder="Agregue una descripción" id="description" name="description" required></input>
+    <div class="botones-product">
+        <button type="submit" onclick="agregar(event)">Nuevo producto</button>
+    </div>
     </form>
 
     <form method="delete" id="deleteForm" action="http://localhost:8080/api/products/{{id}}"></form>
-    <input type="text" placeholder="Ingrese id" name="idProd" id="idProd" required />
-    <button type="submit" onclick="borrar(idProd.value)">Borrar producto</button>
-    </form>
+    <input type="number" placeholder="Ingrese id" name="idProd" id="idProd" required />
+    <button type="submit" onclick="borrar(document.getElementById('idProd').value)">Borrar producto</button>
 
 </div>
 
