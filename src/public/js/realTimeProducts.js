@@ -5,38 +5,11 @@ socket.on('newProduct', datos => {
 
   let ulProductos = document.getElementById("ulproducts")
   let li = document.createElement("li");
-  li.innerHTML = `${datos.title} - ${datos.price}`;
+  li.innerHTML = `${datos.title} - ${datos.price} - ${datos.id} `;
   li.setAttribute("id", `producto-${datos.id}`);
   ulProductos.appendChild(li);
 })
 
-async function borrar() {
-  const prodId = document.getElementById("idProd").value;
-  const url = `http://localhost:8080/api/products/${prodId}`;
-
-  try {
-    const respuesta = await fetch(url, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    
-
-    let datos=await respuesta.json()
-    console.log(datos)
-
-    if (!respuesta.ok) {
-      console.log("Error");
-    } else {
-      console.log("Producto borrado correctamente");
-    }
-  } catch (err) {
-    alert("Ha ocurrido un error al borrar el producto");
-  }
- 
-}
 
 const agregar = async (event) => {
   event.preventDefault();
@@ -71,4 +44,40 @@ const agregar = async (event) => {
     console.error(err);
     alert("Ha ocurrido un error al agregar el producto");
   }
+}
+
+
+// socket.on("deleteProduct",  ({ id }) => {
+
+
+//   ul.removeChild(li)
+
+
+
+// })
+async function borrar() {
+  const prodId = document.getElementById("idProd").value;
+  const url = `http://localhost:8080/api/products/${prodId}`;
+
+  try {
+    const respuesta = await fetch(url, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+
+    let datos=await respuesta.json()
+    console.log(datos)
+
+    if (!respuesta.ok) {
+      console.log("Error");
+    } else {
+      console.log("Producto borrado correctamente");
+    }
+  } catch (err) {
+    alert("Ha ocurrido un error al borrar el producto");
+  }
+ 
 }
