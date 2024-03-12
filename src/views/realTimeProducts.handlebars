@@ -25,7 +25,7 @@
 
     <form method="delete" id="deleteForm" action="http://localhost:8080/api/products/{{id}}"></form>
     <input type="number" placeholder="Ingrese id" name="idProd" id="idProd" required />
-    <button type="submit" onclick="borrar()">Borrar producto</button>
+    <button type="submit" onclick="borrar(document.getElementById('idProd').value)">Borrar producto</button>
 
 </div>
 

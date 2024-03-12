@@ -47,17 +47,20 @@ const agregar = async (event) => {
 }
 
 
-// socket.on("deleteProduct",  ({ id }) => {
+socket.on("deleteProduct",  async datos => {
+  let ulProductos = document.getElementById("ulproducts")
+  let li = document.getElementById(`producto-${datos.id}`);
+
+  if(li) {
+    ulProductos.removeChild(li)
+  }
 
 
-//   ul.removeChild(li)
+})
+async function borrar(idProd) {
+  
+  const url = `http://localhost:8080/api/products/${idProd}`;
 
-
-
-// })
-async function borrar() {
-  const prodId = document.getElementById("idProd").value;
-  const url = `http://localhost:8080/api/products/${prodId}`;
 
   try {
     const respuesta = await fetch(url, {
