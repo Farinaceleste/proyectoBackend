@@ -1,13 +1,13 @@
-const socket = io();
+const socket = io()
 
 socket.on('newProduct', datos => {
   console.log(datos)
 
   let ulProductos = document.getElementById("ulproducts")
-  let li = document.createElement("li");
-  li.innerHTML = `${datos.title} - ${datos.price} - ${datos.id} `;
-  li.setAttribute("id", `producto-${datos.id}`);
-  ulProductos.appendChild(li);
+  let li = document.createElement("li")
+  li.innerHTML = `${datos.title} - ${datos.price} - ${datos.id} `
+  li.setAttribute("id", `producto-${datos.id}`)
+  ulProductos.appendChild(li)
 })
 
 
@@ -23,7 +23,7 @@ const agregar = async (event) => {
       description: document.getElementById("description").value,
     };
 
-    console.log({ producto });
+    console.log({ producto })
 
     const respuesta = await fetch(`http://localhost:8080/api/products/`, {
       method: "POST",
@@ -33,15 +33,15 @@ const agregar = async (event) => {
       body: JSON.stringify(producto),
     });
 
-    console.log({ respuesta });
+    console.log({ respuesta })
 
     if (!respuesta.ok) {
       throw new Error("Error al agregar el producto");
     }
 
-    console.log("Producto agregado correctamente");
+    console.log("Producto agregado correctamente")
   } catch (err) {
-    console.error(err);
+    console.error(err)
     alert("Ha ocurrido un error al agregar el producto");
   }
 }
@@ -49,9 +49,9 @@ const agregar = async (event) => {
 
 socket.on("deleteProduct",  async datos => {
   let ulProductos = document.getElementById("ulproducts")
-  let li = document.getElementById(`producto-${datos.id}`);
+   let li = document.getElementById(`producto-${datos.id}`)
 
-  if(li) {
+  if (li) {
     ulProductos.removeChild(li)
   }
 
@@ -59,7 +59,7 @@ socket.on("deleteProduct",  async datos => {
 })
 async function borrar(idProd) {
   
-  const url = `http://localhost:8080/api/products/${idProd}`;
+  const url = `http://localhost:8080/api/products/${idProd}`
 
 
   try {
@@ -68,19 +68,22 @@ async function borrar(idProd) {
       headers: {
         "Content-Type": "application/json",
       },
-    });
+    })
 
 
     let datos=await respuesta.json()
     console.log(datos)
 
     if (!respuesta.ok) {
-      console.log("Error");
+      console.log("Error")
     } else {
-      console.log("Producto borrado correctamente");
+      console.log("Producto borrado correctamente")
     }
+
+   
+
   } catch (err) {
-    alert("Ha ocurrido un error al borrar el producto");
+    alert("Ha ocurrido un error al borrar el producto")
   }
  
 }
