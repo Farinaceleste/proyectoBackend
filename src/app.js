@@ -8,7 +8,7 @@ import {router as ProductRouter} from "./routes/products.router.js";
 import {router as vistasRouter} from "./routes/vistas.router.js";
 
 const PORT = 8080;
-let io
+
 const app = express()
 
 app.use(express.json());
@@ -36,10 +36,42 @@ const server = app.listen(PORT, ()=> {
     console.log(`Server escuchando en puerto ${PORT}`)
 });
 
-io=new Server(server)
+
+let mensajes = []
+let usuarios = []
+
+const io=new Server(server)
 
 io.on("connection", socket => {
     console.log(`Se conectó un cliente con id ${socket.id}`)
 
-    
+    socket.on("new-user", nombre=> {
+        usuarios.push({id:socket.id, nombre})
+        socket.emit("historial", mensajes)
+        socket.broadcast.emit("nuevoUsuario", nombre)
+    })
+
+    socket.on("mensaje", (nombre, mensaje)=> {
+        mensajes.push({nombre, mensaje})
+        io.emit("nuevoMensaje", nombre, mensaje)
+    })
+
+    socket.on("disconnect", ()=> {
+        let usuario = usuarios.find(u => u.id === socket.id)
+        if(usuario) {
+            socket.broadcast.emit("saleUSuario", usuario.nombre)
+        }
+    })
 })
+
+// const connect = async  () =>{
+//     try {
+//         await mongoose.connect()
+//         }
+//     catch (error){
+//         console.log(error.message)
+//     }
+
+// }
+
+// connect()

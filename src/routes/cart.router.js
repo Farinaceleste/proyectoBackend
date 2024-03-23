@@ -1,7 +1,7 @@
 import {Router} from "express";
-import {ProductManager} from "../managers/productmanager.js";
+import {ProductManager} from "../dao/models/productmanager.js";
 import { rutaCarts, rutaProducts } from "../utils.js";
-import { CartManager } from "../managers/cartmanager.js";
+import { CartManager } from "../dao/models/cartmanager.js";
 export const router = Router ()
 
 let  productmanager=new ProductManager(rutaProducts)
