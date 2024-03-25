@@ -1,20 +1,24 @@
 import { Router } from "express";
-import { ProductManager } from "../dao/models/productmanager.js";
+import { ProductManager } from "../dao/productmanager.js";
 import { rutaProducts } from "../utils.js";
 export const router = Router();
 
 let productmanager = new ProductManager(rutaProducts);
 
-router.get('/', (req, res) => {
-  let products = productmanager.getProducts();
+router.get('/', async (req, res) => {
 
-  res.setHeader("Content-Type", "application/json");
-  res.status(200).json({ products });
+  try {
+    let products = await productmanager.getProducts();
+    res.status(200).json({ products });
+
+  } catch (error) {
+    res.setHeader("Content-Type", "application/json")
+    res.status(500).json({error: "Error inesperado en el servidor"})
+  }
+
 })
 
-router.get("/:id", (req, res) => {
-
-  let products = productmanager.getProducts()
+router.get("/:id", async (req, res) => {
 
   let id = Number(req.params.id);
 
@@ -22,13 +26,16 @@ router.get("/:id", (req, res) => {
     return res.status(400).json({ error: "El id debe ser numérico" })
   }
 
-  let prod = products.find(p => p.id === id)
-  if (!prod) {
-    return res.status(404).json({ error: `No existen productos con el id ${id}` })
-  }
+  try {
+  let prodById = await productmanager.getProductsById(id)
+  res.status(200).json({ prodById })
 
-  res.setHeader("Content-Type", "application/json")
-  res.status(200).json({ prod })
+  } catch (error) {
+    return res.status(400).json({ error: "No se encontraron productos" });
+
+}
+
+ 
 
 
 });
@@ -36,31 +43,31 @@ router.get("/:id", (req, res) => {
 router.post("/", async (req, res) => {
   let { title, price, description, stock, code, thumbnail } = req.body;
 
-  if (!title || !price || !description || !stock || !code ) {
+  if (!title || !price || !description || !stock || !code) {
     return res.status(400).json({ error: "Complete los campos faltantes" });
   }
 
-  let products = await productmanager.getProducts()
+  // let products = await productmanager.getProducts()
 
-  const existProductById = products.find((p) => p.title === products.title);
+  // const existProductById = products.find((p) => p.title === products.title);
 
-  if (existProductById) {
-    console.log(`El producto con id "${products.title}" ya existe`);
-    return null;
-  }
+  // if (existProductById) {
+  //   console.log(`El producto con id "${products.title}" ya existe`);
+  //   return null;
+  // }
 
-  let id = 1;
-  if (products.length > 0) {
-    id = Number(Math.max(...products.map(p => p.id)) + 1);
-  }
+  // let id = 1;
+  // if (products.length > 0) {
+  //   id = Number(Math.max(...products.map(p => p.id)) + 1);
+  // }
 
   try {
-    const newProduct = {
-      ...req.body,
-      id
-    }
+    // const newProduct = {
+    //   ...req.body,
+    //   id
+    // }
 
-    products.push(newProduct);
+    // products.push(newProduct);
     productmanager.saveProducts(products)
     req.io.emit("newProduct", newProduct);
     res.setHeader("Content-Type", "application/json")
@@ -118,7 +125,7 @@ router.delete("/:id", async (req, res) => {
   let deletedProd = products[indiceprod]
   products.splice(indiceprod, 1)
 
- productmanager.saveProducts(products);
+  productmanager.saveProducts(products);
 
   req.io.emit("deleteProduct", deletedProd);
   res.setHeader("Content-Type", "application/json")

@@ -1,7 +1,7 @@
-import mongoosh from "mongoosh";
+import mongoose from "mongoose";
 
 const productsColl = "products";
-const productsSchema = new mongoosh.Schema (
+const productsSchema = new mongoose.Schema (
 
     {
         title: String, 
@@ -13,10 +13,9 @@ const productsSchema = new mongoosh.Schema (
         id: Number
     }, 
     {
-        timeStramps: true
+        timeStramps: true, strict:false
     }
-
 
 )
 
-export const modeloProducts = mongoosh.model(productsColl, productsSchema);
+export const modeloProducts = mongoose.model(productsColl, productsSchema);

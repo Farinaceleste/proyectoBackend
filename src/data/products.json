@@ -1,1 +1,72 @@
-[{"id":1,"title":"Psycho","description":"A horror-thriller about a young woman who is murdered in a motel after stealing money from her employer.","thumbnail":"https://example.com/psycho-thumbnail.jpg","price":12.99,"code":"1","status":"true","stock":100},{"id":2,"title":"Rear Window","description":"A thriller-drama about a wheelchair-bound photographer spying on his neighbors, suspecting one of them has committed murder.","thumbnail":"https://example.com/rear-window-thumbnail.jpg","price":11.99,"code":"2","status":"true","stock":50},{"id":3,"title":"The Birds","description":"A horror-thriller about a series of sudden, unexplained bird attacks.","thumbnail":"https://example.com/the-birds-thumbnail.jpg","price":13.99,"code":"3","status":"true","stock":75},{"id":4,"title":"Vertigo","description":"A psychological thriller-drama about a retired police detective who becomes obsessed with a mysterious woman.","thumbnail":"https://example.com/vertigo-thumbnail.jpg","price":14.99,"code":"4","status":"true","stock":100},{"id":5,"title":"North by Northwest","description":"A thriller-drama about a New York City advertising executive who is mistaken for a spy.","thumbnail":"https://example.com/north-by-northwest-thumbnail.jpg","price":15.99,"code":"5","status":"true","stock":75},{"id":6,"title":"Strangers on a Train","description":"A thriller-drama about two strangers who meet on a train and plan to commit each other's murders.","thumbnail":"https://example.com/strangers-on-a-train-thumbnail.jpg","price":11.99,"code":"6","status":"true","stock":100},{"id":7,"title":"Dial M for Murder","description":"A thriller-drama about a retired tennis pro who hatches a plan to kill his wife.","thumbnail":"https://example.com/dial-m-for-murder-thumbnail.jpg","price":12.99,"code":"7","status":"true","stock":75},{"title":"pelicula1","price":"2","code":"2","stock":"22","description":"no tiene","id":8}]
+[
+    {
+        "id": 1,
+        "title": "Psycho",
+        "description": "A horror-thriller about a young woman who is murdered in a motel after stealing money from her employer.",
+        "thumbnail": "https://example.com/psycho-thumbnail.jpg",
+        "price": 12.99,
+        "code": "1",
+        "status": "true",
+        "stock": 100
+    },
+    {
+        "id": 2,
+        "title": "Rear Window",
+        "description": "A thriller-drama about a wheelchair-bound photographer spying on his neighbors, suspecting one of them has committed murder.",
+        "thumbnail": "https://example.com/rear-window-thumbnail.jpg",
+        "price": 11.99,
+        "code": "2",
+        "status": "true",
+        "stock": 50
+    },
+    {
+        "id": 3,
+        "title": "The Birds",
+        "description": "A horror-thriller about a series of sudden, unexplained bird attacks.",
+        "thumbnail": "https://example.com/the-birds-thumbnail.jpg",
+        "price": 13.99,
+        "code": "3",
+        "status": "true",
+        "stock": 75
+    },
+    {
+        "id": 4,
+        "title": "Vertigo",
+        "description": "A psychological thriller-drama about a retired police detective who becomes obsessed with a mysterious woman.",
+        "thumbnail": "https://example.com/vertigo-thumbnail.jpg",
+        "price": 14.99,
+        "code": "4",
+        "status": "true",
+        "stock": 100
+    },
+    {
+        "id": 5,
+        "title": "North by Northwest",
+        "description": "A thriller-drama about a New York City advertising executive who is mistaken for a spy.",
+        "thumbnail": "https://example.com/north-by-northwest-thumbnail.jpg",
+        "price": 15.99,
+        "code": "5",
+        "status": "true",
+        "stock": 75
+    },
+    {
+        "id": 6,
+        "title": "Strangers on a Train",
+        "description": "A thriller-drama about two strangers who meet on a train and plan to commit each other's murders.",
+        "thumbnail": "https://example.com/strangers-on-a-train-thumbnail.jpg",
+        "price": 11.99,
+        "code": "6",
+        "status": "true",
+        "stock": 100
+    },
+    {
+        "id": 7,
+        "title": "Dial M for Murder",
+        "description": "A thriller-drama about a retired tennis pro who hatches a plan to kill his wife.",
+        "thumbnail": "https://example.com/dial-m-for-murder-thumbnail.jpg",
+        "price": 12.99,
+        "code": "7",
+        "status": "true",
+        "stock": 75
+    }
+]

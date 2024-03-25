@@ -10,7 +10,6 @@ socket.on('newProduct', datos => {
   ulProductos.appendChild(li)
 })
 
-
 const agregar = async (event) => {
   event.preventDefault();
 
@@ -49,18 +48,17 @@ const agregar = async (event) => {
 
 socket.on("deleteProduct",  async datos => {
   let ulProductos = document.getElementById("ulproducts")
-   let li = document.getElementById(`producto-${datos.id}`)
+  let li = document.getElementById(`producto-${datos.id}`)
 
   if (li) {
     ulProductos.removeChild(li)
   }
 
-
 })
+
 async function borrar(idProd) {
   
   const url = `http://localhost:8080/api/products/${idProd}`
-
 
   try {
     const respuesta = await fetch(url, {
@@ -70,7 +68,6 @@ async function borrar(idProd) {
       },
     })
 
-
     let datos=await respuesta.json()
     console.log(datos)
 
@@ -79,8 +76,6 @@ async function borrar(idProd) {
     } else {
       console.log("Producto borrado correctamente")
     }
-
-   
 
   } catch (err) {
     alert("Ha ocurrido un error al borrar el producto")
