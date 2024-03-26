@@ -1,8 +1,8 @@
-import mongoose from "mongoose";
+import mongoose from "mongoose"
 
-const productsColl = "products";
+const productsColl = "products"
 const productsSchema = new mongoose.Schema (
-
+    
     {
         title: String, 
         description: String, 

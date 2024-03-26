@@ -1,34 +1,27 @@
 import { modeloProducts } from "./models/products.models.js"
 
+
 export class ProductManager {
 
-    constructor(ruta) {
-        // this.path = ruta
-
-    }
 
     async getProducts() { 
-      
-        return await modeloProducts.find()
-        
+        return await modeloProducts.find().lean()
     }
 
     async getProductsById (id) {
-        return await modeloProducts.findById(id)
+        return await modeloProducts.findById(id).lean()
     }
 
     async getProductsBy(filtro) {
-        return await modeloProducts.findOne(filtro)
+        return await modeloProducts.findOne(filtro).lean()
     }
 
     async updateProducts (filtro) {
-        return await modeloProducts.updateOne(filtro)
+        return await modeloProducts.updateOne(filtro).lean()
     }
     
-    
-    
-    async deleteProducts (id) { // solo guarda productos en el archivo json 
-        return await modeloProducts.deleteOne({_id : id})
+    async deleteProducts (id) { 
+        return await modeloProducts.deleteOne({_id : id}).lean()
     }
 
 }
