@@ -22,6 +22,7 @@ app.set("views", path.join(__dirname, "views"))
 app.use(express.static(path.join(__dirname, "/public")))
 app.use("/", vistasRouter)
 app.use("/realtimeproducts", vistasRouter)
+
 app.use("/api/products", (req, res, next) => {
     req.io = io;
     next();

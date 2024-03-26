@@ -68,5 +68,85 @@
         "code": "7",
         "status": "true",
         "stock": 75
-    }
+    }, 
+    {
+        "id": 8,
+        "title": "Oppenheimer",
+        "description": "Christopher Nolan's latest epic film about J. Walter Oppenheimer and the creation of the atomic bomb.",
+        "thumbnail": "https://example.com/oppenheimer.jpg",
+        "price": 12.99,
+        "code": "CPN1",
+        "status": true,
+        "stock": 100
+      },
+      {
+        "id": 9,
+        "title": "Interstellar",
+        "description": "A space exploration film that follows a group of astronauts as they travel through a wormhole in search of a new home for humanity.",
+        "thumbnail": "https://example.com/interstellar.jpg",
+        "price": 11.99,
+        "code": "CPN2",
+        "status": true,
+        "stock": 200
+      },
+      {
+        "id": 10,
+        "title": "Inception",
+        "description": "A heist film set in a dream world where a team of thieves must infiltrate a target's subconscious and steal their secrets.",
+        "thumbnail": "https://example.com/inception.jpg",
+        "price": 10.99,
+        "code": "CPN3",
+        "status": true,
+        "stock": 300
+      },
+      {
+        "id": 11,
+        "title": "The Dark Knight",
+        "description": "The second installment in Nolan's Batman trilogy, where Batman faces off against his greatest nemesis, the Joker.",
+        "thumbnail": "https://example.com/darkknight.jpg",
+        "price": 9.99,
+        "code": "CPN4",
+        "status": true,
+        "stock": 400
+      },
+      {
+        "id": 12,
+        "title": "The Dark Knight Rises",
+        "description": "The final installment in Nolan's Batman trilogy, where Batman must confront his greatest enemy and save Gotham City from destruction.",
+        "thumbnail": "https://example.com/darkknightrises.jpg",
+        "price": 10.99,
+        "code": "CPN5",
+        "status": true,
+        "stock": 500
+      },
+      {
+        "id": 13,
+        "title": "Batman Begins",
+        "description": "The first installment in Nolan's Batman trilogy, where Bruce Wayne must confront his past and become the hero Gotham needs.",
+        "thumbnail": "https://example.com/batmanbegins.jpg",
+        "price": 11.99,
+        "code": "CPN6",
+        "status": true,
+        "stock": 600
+      },
+      {
+        "id": 14,
+        "title": "Dunkirk",
+        "description": "A war film set during the evacuation of Dunkirk during World War II, where a group of soldiers must fight for their survival.",
+        "thumbnail": "https://example.com/dunkirk.jpg",
+        "price": 12.99,
+        "code": "CPN7",
+        "status": true,
+        "stock": 700
+      },
+      {
+        "id": 15,
+        "title": "The Prestige",
+        "description": "A film about two rival magicians in the late 19th century who will stop at nothing to outdo each other and become the best in the business.",
+        "thumbnail": "https://example.com/prestige.jpg",
+        "price": 13.99,
+        "code": "CPN8",
+        "status": true,
+        "stock": 800
+      }
 ]
