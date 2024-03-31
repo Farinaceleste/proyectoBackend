@@ -6,10 +6,30 @@
 
 <div class="productList">
 
-    {{#each products}}
-        <ul> 
-            <li>{{this.title}} - ${{this.price}}</li> 
-        </ul>
+    {{#each docs}}
+    <ul>
+        <div id="addForm">
+            <li>{{this.title}} - ${{this.price}} - {{this.description}}</li>
+            <button type="submit" data-product-id="idProdAdd">Agregar al carrito</button>
+        </div>
+    </ul>
     {{/each}}
 
+    <a href="/?page=1">Pág.1</a>
+
+    {{#if hasPrevPage}}
+    <a href="/?page={{prevPage}}">Pág.Anterior</a>
+    {{/if}}
+
+    {{#if hasNextPage}}
+    <a href="/?page={{nextPage}}">Pág.Siguiente</a>
+    {{/if}}
+
+    {{#if hasNextPage}}
+    <a href="/?page={{totalPages}}">Ult.página</a>
+    {{/if}}
 </div>
+
+
+
+<script src="/js/home.js"></script>

@@ -9,9 +9,16 @@ let productmanager = new ProductManager(rutaProducts);
 router.get('/', async (req, res) => {
 
   try {
-    let products = await productmanager.getProducts();
-    res.status(200).json({ products });
+    //GET SIN PAGINAR
+    //let products = await productmanager.getProducts()
 
+    //GET PAGINADO
+    const page = req.query.page || 1;
+    const limit = req.query.limit || 2;
+    let products = await productmanager.getProducts(page, limit)
+
+    res.setHeader("Content-Type", "application/json")
+    res.status(200).json({ products })
   } catch (error) {
     res.setHeader("Content-Type", "application/json")
     res.status(500).json({ error: "Error inesperado en el servidor" })
@@ -22,6 +29,7 @@ router.get('/', async (req, res) => {
 router.get("/:id", async (req, res) => {
 
   let { id } = req.params
+
   if (!mongoose.Types.ObjectId.isValid(id)) {
     res.setHeader("Content-Type", "application/json")
     res.status(400).json({ error: "id inválido" });
@@ -46,60 +54,43 @@ router.get("/:id", async (req, res) => {
 })
 
 router.post("/", async (req, res) => {
-  let { title, price, description, stock, code, thumbnail } = req.body;
+  let { title, price, description, code, thumbnail } = req.body;
 
-  if (!title || !price || !description || !stock || !code) {
+  if (!title || !price || !description || !code) {
     return res.status(400).json({ error: "Complete los campos faltantes" })
   }
 
-  // let products = await productmanager.getProducts()
-
-  // const existProductById = products.find((p) => p.title === products.title);
-
-  // if (existProductById) {
-  //   console.log(`El producto con id "${products.title}" ya existe`);
-  //   return null;
-  // }
-
-  // let id = 1;
-  // if (products.length > 0) {
-  //   id = Number(Math.max(...products.map(p => p.id)) + 1);
-  // }
-
   try {
-    // const newProduct = {
-    //   ...req.body,
-    //   id
-    // }
+    let newProduct = await productmanager.addProducts({title, price, description, code, thumbnail})
+    res.setHeader('Content-Type', 'application/json');
+    return res.status(201).json({newProduct})
 
-    // products.push(newProduct);
-    productmanager.saveProducts(products)
-    req.io.emit("newProduct", newProduct);
-    res.setHeader("Content-Type", "application/json")
-    res.status(201).json({ newProduct });
-
-  } catch (error) {
-    console.log('Error al guardar  el producto', error);
+  } catch(error) {
+    res.setHeader('Content-Type', 'application/json');
+    return res.status(500).json({ error: "Error al agregar el producto" })
   }
+
 
 })
 
 router.post("/:id", async (req, res) => {
   let id = req.params
 
-  let products = await productmanager.getProducts()
+  // let products = await productmanager.getProducts()
 
-  let index = products.findIndex(p => p.id === id);
+  // let index = products.findIndex(p => p.id === id);
 
-  if (index === -1) {
-    return res.status(404).json({ error: `El producto con id ${id} no se encontró` });
-  }
+  // if (index === -1) {
+  //   return res.status(404).json({ error: `El producto con id ${id} no se encontró` });
+  // }
 
-  products[index] = {
-    ...products[index],
-    ...req.body,
-    id
-  };
+  let products = await productmanager.updateProducts(id)
+
+  // products[index] = {
+  //   ...products[index],
+  //   ...req.body,
+  //   id
+  // };
 
   productmanager.saveProducts(products);
 
@@ -109,42 +100,42 @@ router.post("/:id", async (req, res) => {
 
 router.put("/:id", async (req, res) => {
 
-  // let { id } = req.params
-  // let updateProd = req.body
+  let { id } = req.params
+  let updateProd = req.body
 
-  // if (!mongoose.Types.ObjectId.isValid(id)) {
-  //   res.setHeader("Content-Type", "application/json")
-  //   res.status(400).json({ error: "id inválido" });
-  // }
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    res.setHeader("Content-Type", "application/json")
+    res.status(400).json({ error: "id inválido" });
+  }
 
-  // if(updateProd.hasOwnProperty('_id')){
-  //   delete updateProd._id
-  // }
+  if(updateProd.hasOwnProperty('_id')){
+    delete updateProd._id
+  }
 
-  // if(updateProd.code){
-  //   let code = await productmanager.getProductsBy({code: updateProd.code, _id:{$ne:id}})
-  //   if (code) {
-  //     res.setHeader("Content-Type", "application/json")
-  //     res.status(400).json({ error: `Ya existe el producto con code: ${code}` });
-  //   }
-  // }
+  if(updateProd.code){
+    let code = await productmanager.getProductsBy({code: updateProd.code, _id:{$ne:id}})
+    if (code) {
+      res.setHeader("Content-Type", "application/json")
+      res.status(400).json({ error: `Ya existe el producto con code: ${code}` });
+    }
+  }
 
-  // try {
-  //   let resultado = await productmanager.updateProducts({_id:id}, updateProd)
+  try {
+    let resultado = await productmanager.updateProducts({_id:id}, updateProd)
 
 
-  //   if (resultado.modifiedCount > 0) {
-  //     res.status(200).json({ message: `Producto modificado con id ${id}` })
-  //   } else {
-  //     res.setHeader('Content-Type', 'application/json')
-  //     return res.status(400).json({ error: `No existen productos con el id ${id}` })
-  //   }
+    if (resultado.modifiedCount > 0) {
+      res.status(200).json({ message: `Producto modificado con id ${id}` })
+    } else {
+      res.setHeader('Content-Type', 'application/json')
+      return res.status(400).json({ error: `No existen productos con el id ${id}` })
+    }
 
-  // } catch (error) {
-  //   console.error(error)
-  //   res.setHeader('Content-Type', 'application/json')
-  //   return res.status(500).json({ error: "Error inesperado en el servidor" })
-  // }
+  } catch (error) {
+    console.error(error)
+    res.setHeader('Content-Type', 'application/json')
+    return res.status(500).json({ error: "Error inesperado en el servidor" })
+  }
 
 })
 
@@ -173,27 +164,4 @@ router.delete("/:id", async (req, res) => {
 
   }
 
-
-
-  // let id = Number(req.params.id);
-
-  // if (isNaN(id)) {
-  //   return res.status(400).json({ error: "El id debe ser numérico" });
-  // }
-
-  // let products = await productmanager.getProducts()
-
-  // let indiceprod = products.findIndex(p => p.id === id)
-  // if (indiceprod === -1) {
-  //   return res.status(404).json({ error: `No se encontraron productos con el id ${ id }` })
-  // }
-
-  // let deletedProd = products[indiceprod]
-  // products.splice(indiceprod, 1)
-
-  // productmanager.saveProducts(products);
-
-  // req.io.emit("deleteProduct", deletedProd);
-  // res.setHeader("Content-Type", "application/json")
-  // res.status(200).json({ deletedProd })
 })

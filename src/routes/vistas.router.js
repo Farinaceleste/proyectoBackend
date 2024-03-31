@@ -1,22 +1,45 @@
 import { Router } from "express"
 import { ProductManager } from "../dao/productmanager.js"
 import { rutaProducts } from "../utils.js"
+import paginate from "mongoose-paginate-v2"
+import { modeloProducts } from "../dao/models/products.models.js"
 
 export const router = Router()
 
 const productmanager = new ProductManager(rutaProducts)
 
 router.get("/", async (req, res) => {
-    let products = await productmanager.getProducts()
 
+    const page = req.query.page || 1;
+    const limit = req.query.limit || 2;
+    let products = await productmanager.getProducts(page, limit)
 
-    res.status(200).render("home", {
-        products
-    });
-});
+    console.log(JSON.stringify(products, null, 5))
+
+    res.setHeader('Content-Type','text/html')
+
+    let totalPages = products.totalPages;
+    let prevPage = products.prevPage;
+    let nextPage = products.nextPage;
+    let hasPrevPage = products.hasPrevPage;
+    let hasNextPage = products.hasNextPage;
+    let docs = products.docs;
+
+    res.status(200).render("home",{
+        docs,
+        totalPages, 
+        prevPage, nextPage, 
+        hasPrevPage, hasNextPage
+    })
+
+    // res.status(200).render("home", {
+    //     products
+    // })
+})
 
 router.get("/realtimeproducts", async (req, res) => {
     let products = await productmanager.getProducts()
+    res.setHeader('Content-Type','text/html')
 
     res.status(200).render("realtimeproducts", {
         products
@@ -24,14 +47,41 @@ router.get("/realtimeproducts", async (req, res) => {
 });
 
 router.get("/chat", async (req, res) => {
+    res.setHeader('Content-Type','text/html')
 
     res.status(200).render('chat')
 })
 
 router.get("/products", async (req, res) => {
-    const  products = await productmanager.getProducts()
+    
+    
+    let {pagina, limit}=req.query
 
-    res.status(200).render("home", {products})
+    if(!pagina) {
+        pagina = 1
+    }
+
+    if(!limit) {
+        limit = 3
+    }
+
+    let {
+        docs:products,
+        totalPages,
+        prevPage, nextPage,
+        hasPrevPage, hasNextPage
+
+    } = await productmanager.getProducts()
+
+    console.log(JSON.stringify(products, null, 5))
+
+    res.setHeader('Content-Type', 'text/html')
+    res.status(200).render("products", {
+        products,
+        totalPages, 
+        prevPage, nextPage, 
+        hasNextPage, hasPrevPage
+    })
     
 })
 

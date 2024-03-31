@@ -68,9 +68,14 @@ io.on("connection", socket => {
 
 const connect = async () => {
     try {
-        await mongoose.connect("mongodb+srv://farinafernandez304:cele6146@cluster0.hute7bc.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0&dbName=ecommerce")
-        console.log('Conectandose a la BD')
-        }
+        //MONGOSH Base de datos local
+        //await mongoose.connect("mongodb+srv://farinafernandez304:cele6146@cluster0.hute7bc.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0&dbName=ecommerce")
+        //console.log('Conectado a Mongosh')
+
+        //MONGO ATLAS Base de datos en Atlas
+        await mongoose.connect("mongodb+srv://farinaceleste:cele6146@cluster0.nwo2jkx.mongodb.net/ecommerce")
+        console.log('Conectado a Mongo Atlas')
+    }
     catch (error) {
         console.log(error.message)
     }
