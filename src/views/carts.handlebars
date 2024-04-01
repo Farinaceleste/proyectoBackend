@@ -1,0 +1,19 @@
+<h1>Carrito</h1>
+
+<a href="/">Volver</a>
+<ul id="cartItems">
+    {{#each products}}
+
+    <div id="itemCart">
+        <li id="idProd">{{this.product.title}} - ${{this.product.price}} - {{this.product.description}} -
+            {{this.quantity}}</li>
+        
+        <button type="submit" onclick="borrar(document.getElementById('idProd').value)">Borrar producto</button>
+    </div>
+</ul>
+{{/each}}
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/cart.js"></script>

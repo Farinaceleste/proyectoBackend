@@ -1,12 +1,14 @@
 import { Router } from "express"
 import { ProductManager } from "../dao/productmanager.js"
-import { rutaProducts } from "../utils.js"
+import { rutaProducts, rutaCarts } from "../utils.js"
 import paginate from "mongoose-paginate-v2"
 import { modeloProducts } from "../dao/models/products.models.js"
+import { CartManager } from "../dao/cartmanager.js"
 
 export const router = Router()
 
 const productmanager = new ProductManager(rutaProducts)
+const cartmanager = new CartManager(rutaCarts)
 
 router.get("/", async (req, res) => {
 
@@ -47,9 +49,22 @@ router.get("/realtimeproducts", async (req, res) => {
 });
 
 router.get("/chat", async (req, res) => {
-    res.setHeader('Content-Type','text/html')
 
+    res.setHeader('Content-Type','text/html')
     res.status(200).render('chat')
+})
+
+router.get("/carts/:cid", async (req, res) => {
+
+    let { cid} = req.params
+
+    let cart = await cartmanager.getCartsById(cid)
+    console.log(cart.products)
+
+    let products = cart.products
+
+    res.setHeader('Content-Type','text/html')
+    res.status(200).render('carts', {products})
 })
 
 router.get("/products", async (req, res) => {

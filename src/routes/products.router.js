@@ -1,10 +1,12 @@
 import { Router } from "express";
 import { ProductManager } from "../dao/productmanager.js";
-import { rutaProducts } from "../utils.js";
+import { rutaCarts, rutaProducts } from "../utils.js";
 import mongoose from "mongoose";
+import { CartManager } from "../dao/cartmanager.js";
 export const router = Router();
 
 let productmanager = new ProductManager(rutaProducts);
+let cartmanager = new CartManager(rutaCarts)
 
 router.get('/', async (req, res) => {
 
@@ -54,14 +56,15 @@ router.get("/:id", async (req, res) => {
 })
 
 router.post("/", async (req, res) => {
-  let { title, price, description, code, thumbnail } = req.body;
+  let { title, price, description, code, thumbnail, stock } = req.body;
 
-  if (!title || !price || !description || !code) {
+  if (!title || !price || !description || !code || !stock) {
+    res.setHeader('Content-Type', 'application/json');
     return res.status(400).json({ error: "Complete los campos faltantes" })
   }
 
   try {
-    let newProduct = await productmanager.addProducts({title, price, description, code, thumbnail})
+    let newProduct = await productmanager.addProducts({title, price, description, code, thumbnail, stock})
     res.setHeader('Content-Type', 'application/json');
     return res.status(201).json({newProduct})
 
@@ -74,28 +77,26 @@ router.post("/", async (req, res) => {
 })
 
 router.post("/:id", async (req, res) => {
-  let id = req.params
+  let { id } = req.params
 
-  // let products = await productmanager.getProducts()
+  try {
 
-  // let index = products.findIndex(p => p.id === id);
+    const product = await productmanager.getProductsById(id)
+    await cartmanager.updateCarts(product)
+    res.setHeader('Content-Type', 'application/json');
+    return res.status(201).json({product})
 
-  // if (index === -1) {
-  //   return res.status(404).json({ error: `El producto con id ${id} no se encontró` });
-  // }
+    
 
-  let products = await productmanager.updateProducts(id)
 
-  // products[index] = {
-  //   ...products[index],
-  //   ...req.body,
-  //   id
-  // };
 
-  productmanager.saveProducts(products);
+  } catch(error) {
+    console.error(error)
+    res.setHeader('Content-Type', 'application/json')
+    return res.status(500).json({ error: "Error inesperado en el servidor" })
 
-  res.setHeader("Content-Type", "application/json");
-  res.status(201).json({ ProductoModificado: products[index] });
+  }
+  
 });
 
 router.put("/:id", async (req, res) => {

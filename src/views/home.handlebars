@@ -1,6 +1,7 @@
 <h1>Listado de productos: </h1>
 
 <a href="/realtimeproducts">Agregar/borrar productos</a>
+<a href="/carts/660981894b730e964d61fc9a">Ir al carrito</a>
 <a href="/chat">Chat</a>
 <hr>
 
@@ -10,7 +11,7 @@
     <ul>
         <div id="addForm">
             <li>{{this.title}} - ${{this.price}} - {{this.description}}</li>
-            <button type="submit" data-product-id="idProdAdd">Agregar al carrito</button>
+            <button id="add-to-cart-{{this._id}}"type="submit" data-product-id="{{this._id}}">Agregar al carrito</button>
         </div>
     </ul>
     {{/each}}
@@ -31,5 +32,5 @@
 </div>
 
 
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="/js/home.js"></script>

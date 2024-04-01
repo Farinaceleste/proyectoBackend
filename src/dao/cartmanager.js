@@ -14,7 +14,7 @@ export class CartManager{
     async getCartsById (cid) {
         // await fs.promises.writeFile(this.path, JSON.stringify(carts), { encoding: 'utf-8' })
     try{  
-        let carrito = await modeloCarts.findById({_id: cid}).lean()
+        let carrito = await modeloCarts.findById(cid).populate("products.product").lean()
         console.log(carrito)
         return carrito;
     } catch  (err){
@@ -29,12 +29,17 @@ export class CartManager{
     
     async deleteCarts (id) {
         
-        return await  modeloCarts.deleteOne({_id : id}).lean()
+        return await  modeloCarts.findByIdAndDelete(id).lean()
     }
 
     async saveCart (cart) {
 
         return await modeloCarts.create(cart)
+    }
+
+    async findAndUpdate (cid, pid) {
+
+        return await modeloCarts.findByIdAndUpdate (cid, pid)
     }
 
     
