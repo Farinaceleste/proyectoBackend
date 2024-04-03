@@ -7,8 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             try {
 
-                const respuesta = await fetch(`http://localhost:8080/api/carts/`, {
-                    method: "POST",
+                const respuesta = await fetch(`http://localhost:8080/api/products/`, {
+                    method: "GET",
                     headers: {
                         "Content-Type": "application/json",
                     },

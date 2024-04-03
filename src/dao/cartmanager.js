@@ -1,4 +1,4 @@
-import fs from "fs"
+
 import { modeloCarts } from "./models/carts.models.js"
 
 export class CartManager{
@@ -12,7 +12,6 @@ export class CartManager{
     }
 
     async getCartsById (cid) {
-        // await fs.promises.writeFile(this.path, JSON.stringify(carts), { encoding: 'utf-8' })
     try{  
         let carrito = await modeloCarts.findById(cid).populate("products.product").lean()
         console.log(carrito)
@@ -42,5 +41,10 @@ export class CartManager{
         return await modeloCarts.findByIdAndUpdate (cid, pid)
     }
 
+    async deleteFromCart(cid, pid) {
+
+        return await modeloCarts.findByIdAndUpdate(cid, { $pull: { products: { _id: pid } } },
+            { new: true })
+    }
     
 }

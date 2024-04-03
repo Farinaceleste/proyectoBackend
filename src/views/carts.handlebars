@@ -1,14 +1,17 @@
 <h1>Carrito</h1>
 
 <a href="/">Volver</a>
+<input id="cartId" type="text" hidden value="{{cart._id}}">
 <ul id="cartItems">
-    {{#each products}}
+    {{#each cart.products}}
 
     <div id="itemCart">
         <li id="idProd">{{this.product.title}} - ${{this.product.price}} - {{this.product.description}} -
             {{this.quantity}}</li>
-        
-        <button type="submit" onclick="borrar(document.getElementById('idProd').value)">Borrar producto</button>
+            <button type="submit" data-product-id="{{this.product._id}}">Borrar producto</button>
+
+            {{!-- <button onclick="borrar({{cart._id}}, {{this.product._id}})">Borrar producto</button> --}}
+
     </div>
 </ul>
 {{/each}}

@@ -59,12 +59,10 @@ router.get("/carts/:cid", async (req, res) => {
     let { cid} = req.params
 
     let cart = await cartmanager.getCartsById(cid)
-    console.log(cart.products)
-
-    let products = cart.products
+  
 
     res.setHeader('Content-Type','text/html')
-    res.status(200).render('carts', {products})
+    res.status(200).render('carts', {cart})
 })
 
 router.get("/products", async (req, res) => {

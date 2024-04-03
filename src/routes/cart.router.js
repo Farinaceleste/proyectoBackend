@@ -11,7 +11,7 @@ let productmanager = new ProductManager(rutaProducts)
 let cartmanager = new CartManager(rutaCarts)
 
 router.get('/', async (req, res) => {
-
+  res.setHeader('Content-Type', 'application/json')
   try {
     let carts = await cartmanager.getCarts()
 
@@ -26,7 +26,7 @@ router.get('/', async (req, res) => {
 })
 
 router.get("/:cid", async (req, res) => {
-
+  res.setHeader('Content-Type', 'application/json')
   let { cid } = req.params
 
   if (!mongoose.Types.ObjectId.isValid(cid)) {
@@ -55,7 +55,7 @@ router.get("/:cid", async (req, res) => {
 })
 
 router.post("/", async (req, res) => {
-
+  res.setHeader('Content-Type', 'application/json')
   try {
     const newCart = {
       products: req.body.products || []
@@ -74,7 +74,7 @@ router.post("/", async (req, res) => {
 })
 
 router.post("/:cid/product/:pid", async (req, res) => {
-
+  res.setHeader('Content-Type', 'application/json')
   try  {
 
     const carts = await cartmanager.getCarts()
@@ -82,6 +82,7 @@ router.post("/:cid/product/:pid", async (req, res) => {
     const prodById = req.params.pid.toString()
 
     if (!mongoose.Types.ObjectId.isValid(cartId)) {
+      res.setHeader('Content-Type', 'application/json')
       return res.status(400).json({error: "ID de carrito inválido"})
     }
 
@@ -157,7 +158,9 @@ router.put("/:cid/products/:pid", async (req, res) => {
     res.status(200).json({ prodCart })
 
   } catch (error) {
+
     console.error('Error al actualizar el carrito:', error);
+    res.setHeader('Content-Type', 'application/json')
     res.status(500).json({ error: 'Error al actualizar el carrito' });
   }
 
@@ -166,28 +169,26 @@ router.put("/:cid/products/:pid", async (req, res) => {
 
 router.delete("/:cid/products/:pid", async (req, res) => {
   const { cid, pid } = req.params
-
+  
   if (!mongoose.Types.ObjectId.isValid(cid) || !mongoose.Types.ObjectId.isValid(pid)) {
     res.setHeader("Content-Type", "application/json")
-    res.status(400).json({ error: "id inválido" });
+    return res.status(400).json({ error: "id inválido" });
   }
-
+  
   try {
-      const updatedCart = await modeloCarts.deleteCarts(cid, {
-        $pull: {products: {_id: pid}}
-      }, { new:true })
-
+    
+      const updatedCart = await cartmanager.deleteFromCart(cid, pid);
       if (!updatedCart) {
         res.header('Content-Type', 'application/json')
-        res.status(400).json ({error: "Carrito no encontrado"})
-        return 
+        return res.status(400).json ({error: "Carrito no encontrado"})
+         
       }
 
       res.header('Content-Type', 'application/json')
-      res.status(200).json ({message: "Producto eliminado", cart:updatedCart})
+      return res.status(200).json ({message: "Producto eliminado", cart:updatedCart})
   } catch (error) {
       res.header('Content-Type', 'application/json')
-      res.status(500).json ({error: "Error en el servidor"})
+      return res.status(500).json ({error: "Error en el servidor"})
   }
 
 
@@ -203,6 +204,7 @@ router.delete("/:cid", async (req, res) => {
   try {
     let resultado = await cartmanager.deleteCarts(cid)
     if (resultado.deletedCount > 0) {
+      res.setHeader('Content-Type', 'application/json')
       res.status(200).json({
         message: `Se ha eliminado el carrito con id: ${cid}`
       })
