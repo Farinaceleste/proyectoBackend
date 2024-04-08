@@ -61,8 +61,10 @@ router.get('/login', (req, res) => {
 })
 
 router.get ('/registro', (req, res) => {
-    
-    res.status(200).render('registro')
+
+    let {error, mensaje} = req.query
+
+    res.status(200).render('registro', {error, mensaje})
 })
 
 router.get('/perfil', auth, (req, res) => {

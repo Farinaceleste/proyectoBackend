@@ -23,7 +23,7 @@ btnSubmit.addEventListener('click', async (e) => {
     let datos = await resultado.json()
     if (status == 200) {
         divMensaje.style.color = "green"
-        divMensaje.innerHTML = datos.payload
+        divMensaje.innerHTML = datos.message
     } else {
         divMensaje.style.color = "red"
         divMensaje.innerHTML = datos.error

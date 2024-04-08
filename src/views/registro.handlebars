@@ -6,7 +6,13 @@
 
 <form action="/api/sessions/registro" method='post'>
    
-    <div id="mensaje"></div>
+    {{#if error}}
+        <div style="font-weight: bold; color: red;">{{error}}</div>
+    {{/if}} 
+
+    {{#if mensaje}}
+        <div style="font-weight: bold; color: green;">{{mensaje}}</div>
+    {{/if}}
    
     <input type="text" name = 'first_name' placeholder="Nombre">
     <input type="text" name = 'last_name' placeholder="Apellido">

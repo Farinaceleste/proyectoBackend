@@ -9,6 +9,7 @@ import { router as vistasRouter } from "./routes/vistas.router.js";
 import {router as sessionsRouter} from './routes/sessions.router.js';
 import mongoose from "mongoose";
 import session from "express-session";
+import MongoStore from "connect-mongo"
 
 
 const PORT = 8080;
@@ -20,7 +21,11 @@ app.use(session(
     {
         secret: "CoderCoder123", 
         resave: true,
-        saveUninitialized:true 
+        saveUninitialized:true, 
+        store: MongoStore.create({
+            mongoUrl: "mongodb+srv://farinaceleste:cele6146@cluster0.nwo2jkx.mongodb.net/ecommerce", 
+            ttl:60
+        })
     }
 ))
 app.engine("handlebars", engine())
