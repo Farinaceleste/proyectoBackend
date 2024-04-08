@@ -1,20 +1,28 @@
 import path from "path";
-import express from "express"
+import express from "express";
 import __dirname from "./utils.js";
-import { engine } from "express-handlebars"
+import { engine } from "express-handlebars";
 import { Server } from "socket.io";
 import { router as CartRouter } from "./routes/cart.router.js";
 import { router as ProductRouter } from "./routes/products.router.js";
 import { router as vistasRouter } from "./routes/vistas.router.js";
-import mongoose from "mongoose"
+import {router as sessionsRouter} from './routes/sessions.router.js';
+import mongoose from "mongoose";
+import session from "express-session";
+
 
 const PORT = 8080;
 
 const app = express()
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use(session(
+    {
+        secret: "CoderCoder123", 
+        resave: true,
+        saveUninitialized:true 
+    }
+))
 app.engine("handlebars", engine())
 app.set("view engine", "handlebars")
 app.set("views", path.join(__dirname, "views"))
@@ -27,7 +35,25 @@ app.use("/api/products", (req, res, next) => {
     req.io = io;
     next();
 }, ProductRouter);
+
 app.use("/api/carts", CartRouter)
+app.use("/api/sessions", sessionsRouter)
+
+app.get("/session", (req, res) => {
+
+    let mensaje = "Bienvenido"
+    console.log(mensaje)
+
+    if (req.session.contador)  {
+        req.session.contador++
+        mensaje += `.Visitas a esta ruta: ${req.session.contador}`
+    } else {
+        req.session.contador = 1
+    }
+    
+    res.setHeader("content-type", "text/plain")
+    res.status(200).send(mensaje)
+})
 
 app.get("*", (req, res) => {
     res.setHeader("content-type", "text/plain")
@@ -37,7 +63,6 @@ app.get("*", (req, res) => {
 const server = app.listen(PORT, () => {
     console.log(`Server escuchando en puerto ${PORT}`)
 });
-
 
 let mensajes = []
 let usuarios = []

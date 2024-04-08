@@ -1,9 +1,11 @@
-import { Router } from "express"
-import { ProductManager } from "../dao/productmanager.js"
-import { rutaProducts, rutaCarts } from "../utils.js"
-import paginate from "mongoose-paginate-v2"
-import { modeloProducts } from "../dao/models/products.models.js"
-import { CartManager } from "../dao/cartmanager.js"
+import { Router } from "express";
+import { ProductManager } from "../dao/productmanager.js";
+import { rutaProducts, rutaCarts } from "../utils.js";
+import paginate from "mongoose-paginate-v2";
+import { modeloProducts } from "../dao/models/products.models.js";
+import { CartManager } from "../dao/cartmanager.js";
+import { auth } from "../dao/middlewares/auth.js";
+
 
 export const router = Router()
 
@@ -50,8 +52,24 @@ router.get("/realtimeproducts", async (req, res) => {
 
 router.get("/chat", async (req, res) => {
 
-    res.setHeader('Content-Type','text/html')
     res.status(200).render('chat')
+})
+
+router.get('/login', (req, res) => {
+    
+    res.status(200).render('login')
+})
+
+router.get ('/registro', (req, res) => {
+    
+    res.status(200).render('registro')
+})
+
+router.get('/perfil', auth, (req, res) => {
+
+    let user = req.session.user
+
+    res.status(200).render('perfil', {user})
 })
 
 router.get("/carts/:cid", async (req, res) => {
