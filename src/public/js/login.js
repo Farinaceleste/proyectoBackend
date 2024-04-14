@@ -1,3 +1,4 @@
+
 let btnSubmit = document.getElementById("submit")
 let inputEmail = document.getElementById("email")
 let inputPassword = document.getElementById("password")
@@ -22,14 +23,26 @@ btnSubmit.addEventListener('click', async (e) => {
     let status = resultado.status
     let datos = await resultado.json()
     if (status == 200) {
-        divMensaje.style.color = "green"
-        divMensaje.innerHTML = datos.message
+        Swal.fire ({
+            title: 'Login exitoso', 
+            confirmButtonText:  `Aceptar`,   
+            icon: 'success',  
+        }).then((result) => {
+            location.href ="/perfil"
+        })
+        
     } else {
-        divMensaje.style.color = "red"
-        divMensaje.innerHTML = datos.error
+        Swal.fire ({
+            title: 'ERROR', 
+            confirmButtonText:  `Aceptar`,  
+            text: 'Usuario y/o contraseña incorrectos',
+            icon: 'error',  
+        })
     }
 
 })
+
+
 
 
 

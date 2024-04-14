@@ -4,13 +4,11 @@
 <hr>
 
 <div class="realtime">
-
     <ul id="ulproducts">
         {{#each products}}
         <li id="producto-{{id}}">{{title}} - ${{price}} - {{id}}</li>
         {{/each}}
     </ul>
-
 
     <form method="post" id="agregarForm" action="http://localhost:8080/api/products/"></form>
     <input type="text" placeholder="Ingrese el titulo" id="title" name="title" required />
@@ -23,16 +21,10 @@
     </div>
     </form>
 
-    <form method="delete" id="deleteForm" action="http://localhost:8080/api/products/{{id}}"></form>
+    <form method="delete" id="deleteForm" action="http://localhost:8080/api/products/{{_id}}"></form>
     <input type="number" placeholder="Ingrese id" name="idProd" id="idProd" required />
     <button type="submit" onclick="borrar(document.getElementById('idProd').value)">Borrar producto</button>
-
 </div>
-
-
-
-
-
 
 <script src="/socket.io/socket.io.js"></script>
 <script src="/js/realTimeProducts.js"></script>

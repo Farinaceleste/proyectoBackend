@@ -1,11 +1,19 @@
-<h2>¡Bienvenido {{user.first_name}} {{user.last_name}}!</h2>
-
 <hr>
-
-<p>Nombre: <strong>{{user.first_name}}</strong></p>
-<p>Correo electrónico: <strong>{{user.email}}</strong></p>
-
-<br>
-
 {{>menu}}
 
+
+<h2>¡Bienvenido {{user.first_name}} {{user.last_name}}!</h2>
+
+<div class="profile">
+    <img src="/img/usuario.jpg" alt="Profile Picture" />
+    <p>Nombre: <strong>{{user.first_name}}</strong></p>
+    <p>Correo electrónico: <strong>{{user.email}}</strong></p>
+
+    <br>
+
+    <button id="deleteSesion">Cerrar sesión</button>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/js/logout.js"></script>

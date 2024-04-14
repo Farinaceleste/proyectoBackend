@@ -15,14 +15,18 @@ body {
     background-color: whitesmoke;
 }
 
-
-
-
-
-
- ul li{
+ul {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+}
+ul li{
+    width: auto;
+    display: flex;  
     text-decoration: none;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    padding: 5px;
 }
 
 input, textarea {
@@ -53,16 +57,18 @@ button {
     justify-content: space-around;
 }
 
+
+
 a {
+ 
+    
+    font-size: 18px;
     text-decoration: none;
-    font-weight: bold;
-    font-size: 24px;
-    display: flex;
-    justify-content: center;
     color:rgb(224, 93, 93);
 
     &:hover {
         color:black;
+       
     }
 }
 
@@ -82,4 +88,35 @@ a {
     gap:10px;
     margin:10px;
 
+}
+
+.items-menu {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap:15px;
+    width: 100% ;
+}
+
+
+
+img {
+    width: 240px;
+    border-radius: 7px;
+}
+
+.profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+h2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
 }

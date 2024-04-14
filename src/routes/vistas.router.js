@@ -1,8 +1,6 @@
 import { Router } from "express";
 import { ProductManager } from "../dao/productmanager.js";
 import { rutaProducts, rutaCarts } from "../utils.js";
-import paginate from "mongoose-paginate-v2";
-import { modeloProducts } from "../dao/models/products.models.js";
 import { CartManager } from "../dao/cartmanager.js";
 import { auth } from "../dao/middlewares/auth.js";
 
@@ -11,6 +9,7 @@ export const router = Router()
 
 const productmanager = new ProductManager(rutaProducts)
 const cartmanager = new CartManager(rutaCarts)
+
 
 router.get("/", async (req, res) => {
 
@@ -33,7 +32,8 @@ router.get("/", async (req, res) => {
         docs,
         totalPages, 
         prevPage, nextPage, 
-        hasPrevPage, hasNextPage
+        hasPrevPage, hasNextPage,
+        login: req.session.user
     })
 
     // res.status(200).render("home", {
@@ -55,23 +55,23 @@ router.get("/chat", async (req, res) => {
     res.status(200).render('chat')
 })
 
-router.get('/login', (req, res) => {
+router.get('/login', async(req, res) => {
     
-    res.status(200).render('login')
+    res.status(200).render('login', {login:req.session.user})
 })
 
-router.get ('/registro', (req, res) => {
+router.get ('/registro', async(req, res) => {
 
     let {error, mensaje} = req.query
 
-    res.status(200).render('registro', {error, mensaje})
+    res.status(200).render('registro', {error, mensaje, login:req.session.user})
 })
 
-router.get('/perfil', auth, (req, res) => {
+router.get('/perfil', auth, async(req, res) => {
 
     let user = req.session.user
 
-    res.status(200).render('perfil', {user})
+    res.status(200).render('perfil', {user, login:req.session.user})
 })
 
 router.get("/carts/:cid", async (req, res) => {
@@ -82,7 +82,7 @@ router.get("/carts/:cid", async (req, res) => {
   
 
     res.setHeader('Content-Type','text/html')
-    res.status(200).render('carts', {cart})
+    res.status(200).render('carts', {cart, login:req.session.user})
 })
 
 router.get("/products", async (req, res) => {
@@ -114,7 +114,7 @@ router.get("/products", async (req, res) => {
         totalPages, 
         prevPage, nextPage, 
         hasNextPage, hasPrevPage
-    })
+    ,login:req.session.user })
     
 })
 

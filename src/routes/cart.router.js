@@ -69,6 +69,7 @@ router.post("/", async (req, res) => {
 
   } catch (error) {
     console.log("Error al guardar el producto", error)
+    res.setHeader('Content-Type', 'application/json')
     res.status(500).json({ message: "Hubo un error al crear la compra" });
   }
 })

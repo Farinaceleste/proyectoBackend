@@ -1,19 +1,19 @@
 <h1>Login de usuarios</h1>
 
-
-{{>menu}}
 <hr>
 
 <form action="/api/sessions/login" method="post">
 
-    <div id="mensaje"></div>
+    <hr>
     
-    <input type="email" name="email" placeholder="Email" id="email">
-    <input type="password" name="password" placeholder="Contraseña" id="password">
+    <input type="email" name="email" placeholder="Email" id="email" required>
+    <input type="password" name="password" placeholder="Contraseña" id="password"required>
     <br>
     <input type="submit" value="Ingresar" id="submit">
-
+    
 </form>
+{{>menu}}
 
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="/js/login.js"></script>

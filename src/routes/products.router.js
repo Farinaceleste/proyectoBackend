@@ -23,7 +23,7 @@ router.get('/', async (req, res) => {
     res.status(200).json({ products })
   } catch (error) {
     res.setHeader("Content-Type", "application/json")
-    res.status(500).json({ error: "Error inesperado en el servidor" })
+    return res.status(500).json({ error: "Error inesperado en el servidor" })
   }
 
 })
@@ -86,15 +86,10 @@ router.post("/:id", async (req, res) => {
     res.setHeader('Content-Type', 'application/json');
     return res.status(201).json({product})
 
-    
-
-
-
   } catch(error) {
     console.error(error)
     res.setHeader('Content-Type', 'application/json')
     return res.status(500).json({ error: "Error inesperado en el servidor" })
-
   }
   
 });
@@ -124,8 +119,8 @@ router.put("/:id", async (req, res) => {
   try {
     let resultado = await productmanager.updateProducts({_id:id}, updateProd)
 
-
     if (resultado.modifiedCount > 0) {
+      res.setHeader('Content-Type', 'application/json')
       res.status(200).json({ message: `Producto modificado con id ${id}` })
     } else {
       res.setHeader('Content-Type', 'application/json')
@@ -151,6 +146,7 @@ router.delete("/:id", async (req, res) => {
   try {
     let resultado = await productmanager.deleteProducts(id)
     if (resultado.deletedCount > 0) {
+      res.setHeader("Content-Type", "application/json")
       res.status(200).json({
         message: `Se ha eliminado el producto con id: ${id}`
       })
@@ -161,7 +157,7 @@ router.delete("/:id", async (req, res) => {
 
   } catch (error) {
     res.setHeader("Content-Type", "application/json")
-    res.status(500).json({ error: 'Error en el servidor' });
+    return res.status(500).json({ error: 'Error en el servidor' });
 
   }
 
