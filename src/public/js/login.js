@@ -12,7 +12,7 @@ btnSubmit.addEventListener('click', async (e) => {
         password: inputPassword.value
     }
 
-    let resultado = await fetch("/api/sessions/login", {
+    let resultado = await fetch("/config/passport.config.js", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

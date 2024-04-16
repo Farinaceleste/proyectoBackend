@@ -9,8 +9,9 @@ import { router as vistasRouter } from "./routes/vistas.router.js";
 import {router as sessionsRouter} from './routes/sessions.router.js';
 import mongoose from "mongoose";
 import session from "express-session";
-import MongoStore from "connect-mongo"
-
+import MongoStore from "connect-mongo";
+import { initPassport } from "./config/passport.config.js";
+import passport from "passport";
 
 const PORT = 8080;
 
@@ -59,6 +60,10 @@ app.get("/session", (req, res) => {
     res.setHeader("content-type", "text/plain")
     res.status(200).send(mensaje)
 })
+
+initPassport()
+app.use(passport.initialize())
+app.use(passport.session())
 
 app.get("*", (req, res) => {
     res.setHeader("content-type", "text/plain")
