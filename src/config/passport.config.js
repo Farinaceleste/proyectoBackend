@@ -2,6 +2,8 @@ import passport from "passport";
 import local from "passport-local";
 import { creaHash, validPassword } from "../utils.js";
 import { UsuariosManagerMongo } from "../dao/usersmanager.js";
+import github from "passport-github2"
+import { usersModelo } from "../dao/models/users.models.js";
 
 const userManager = new UsuariosManagerMongo()
 
@@ -83,13 +85,40 @@ export const initPassport = () => {
         )
     )
 
+    passport.use(
+        'github', 
+        new github.Strategy({
+            clientID: 'Iv1.2de42d6c04a33509', 
+            clientSecret: 'ee221ae9a624b41a457955d6d884a0e51e7338ce',
+            callbackURL: 'http://localhost:8080/api/sessions/callbackGithub', 
+
+        }, 
+        async function(accessToken, refreshToken, profile, done){
+            try {
+                let first_name = profile._json.name
+                let email = profile._json.email
+                let user = await usersModelo.findOne({email})
+                if(!user) {
+                    user = await usersModelo.create({
+                        name : first_name,
+                        email,
+                        profileGithub : profile
+                    })
+                }
+                
+                return done (null, user)
+            } catch (error) {
+                return done (error)
+            }
+        })
+    )
+
     passport.serializeUser((user, done) => {
         return done(null, user._id)
     })
 
-    passport.deserializeUser(async (id, done) => {
-        let users = await userManager.getBy({ _id: id })
-        return done(null, users)
+    passport.deserializeUser(async (user, done) => {
+        return done(null, user)
     })
 }
 

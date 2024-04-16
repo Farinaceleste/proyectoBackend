@@ -2,9 +2,36 @@ import { Router } from "express";
 import { UsuariosManagerMongo } from "../dao/usersmanager.js";
 import { creaHash, validPassword } from "../utils.js";
 import passport from "passport";
+
 export const router = Router()
 
 let userManager = new UsuariosManagerMongo()
+
+router.get('/github', passport.authenticate('github', {}), (req, res) => {
+
+
+})
+
+router.get('/callbackGithub', passport.authenticate('github', {failureRedirect:'/api/sessions/errorGithub'}), (req, res) => {
+
+    req.session.usuario = req.user
+    res.setHeader('Content-Type', 'application/json')
+    return res.status(200).json({
+        payload: 'Login correcto', 
+        user: req.user
+})
+
+})
+
+router.get('/errorGithub', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    return res.status(500).json(
+        {
+            error: 'Error inesperado en el servidor', 
+            detalle: 'Fallo al autenticar con Github'
+        }
+    )
+})
 
 router.get('/errorRegistro', (req, res) => {
     return res.redirect('/registro?error=Error en el proceso de registro')
@@ -46,14 +73,13 @@ router.post('/registro', passport.authenticate('registro', {failureRedirect:'/ap
     // }
 
     console.log(req.user)
-    return res.redirect(`/registro?mensaje=Registro exitoso para ${user}`)
+    return res.redirect(`/registro?mensaje=Registro exitoso para ${req.user}`)
 
 }) 
 
 router.get('/errorLogin', (req, res) => {
     return res.status(400).json({error: 'Error en el proceso de login'})
 })
-
 
 router.post('/login', passport.authenticate('login', {failureRedirect:'/appi/sessions/errorLogin'}) , async (req, res) => {
 
